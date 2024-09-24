@@ -35,12 +35,13 @@ export const useGeolocation = () => {
           `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`
         );
         const data = await response.json();
+        console.log(data);
 
         setLocation({
           latitude,
           longitude,
           city: data.city,
-          country: data.countryName,
+          country: data.principalSubdivision,
         });
       } catch (err) {
         setError(err.message);

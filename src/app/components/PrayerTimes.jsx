@@ -15,6 +15,7 @@ export const PrayerTimes = () => {
 
   if (loading) return <p>Loading prayer times...</p>;
   if (error) return <p>Error: {error}</p>;
+  console.log(location);
 
   const formatTime = (time) => {
     return time.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
@@ -22,6 +23,9 @@ export const PrayerTimes = () => {
 
   return (
     <div>
+      <h3 className="text-md text-stone-600 mb-5">
+        Location: {location.city}, {location.country}
+      </h3>
       {Object.entries(prayerTimes).map(([prayer, time]) => (
         <ul key={prayer}>
           <span>{`${prayer}: `}</span>

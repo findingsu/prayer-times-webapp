@@ -7,7 +7,7 @@ export default function Home() {
     <>
       <Settings />
       <main className="flex flex-col items-center justify-center gap-5">
-        <h1 className="text-lg font-bold">Prayer Times</h1>
+        <h1 className="text-xl font-bold">Prayer Times</h1>
         <DateNavigator />
         <PrayerTimes />
       </main>
