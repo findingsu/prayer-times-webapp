@@ -18,48 +18,51 @@ const SELECT_OPTIONS = {
   ],
 };
 
+const SelectField = ({ label, value, options, onChange }) => (
+  <div className="flex gap-5 mb-4">
+    <p className="font-bold">{label}</p>
+    <select value={value} onChange={onChange} className="border rounded-md">
+      {options.map(({ value, label }) => (
+        <option key={value} value={value}>
+          {label}
+        </option>
+      ))}
+    </select>
+  </div>
+);
+
 export const Settings = () => {
   const { settings, updateSettings } = useAppContext();
-  const [isOpen, setIsOpen] = useState(false); // State to toggle settings visibility
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleSettingChange = (setting) => (e) => {
     updateSettings({ [setting]: e.target.value });
   };
 
   const toggleSettings = () => {
-    setIsOpen(!isOpen); // Toggle the visibility of settings
+    setIsOpen(!isOpen);
   };
 
   return (
-    <div className="p-10">
-      <h2 onClick={toggleSettings} className="mb-2">
+    <div className="flex">
+      <button
+        onClick={toggleSettings}
+        className="m-5 p-3 bg-slate-100 rounded-lg"
+      >
         Settings
-      </h2>
+      </button>
       {isOpen && (
-        <div>
+        <div className="p-5 m-5 w-1/4 bg-white rounded-lg border border-slate-200">
           {Object.entries(SELECT_OPTIONS).map(([setting, options]) => (
-            <div key={setting}>
-              <label htmlFor={setting}>
-                <span className="flex gap-5">
-                  <p className="font-bold">
-                    {setting === "calculationMethod"
-                      ? "Calculation: "
-                      : "Madhab: "}
-                  </p>
-                  <select
-                    id={setting}
-                    value={settings[setting]}
-                    onChange={handleSettingChange(setting)}
-                  >
-                    {options.map(({ value, label }) => (
-                      <option key={value} value={value}>
-                        {label}
-                      </option>
-                    ))}
-                  </select>
-                </span>
-              </label>
-            </div>
+            <SelectField
+              key={setting}
+              label={
+                setting === "calculationMethod" ? "Calculation:" : "Madhab:"
+              }
+              value={settings[setting]}
+              options={options}
+              onChange={handleSettingChange(setting)}
+            />
           ))}
         </div>
       )}

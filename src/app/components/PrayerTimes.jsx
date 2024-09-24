@@ -13,25 +13,41 @@ export const PrayerTimes = () => {
     }
   }, [location, fetchPrayerTimes]);
 
-  if (loading) return <p>Loading prayer times...</p>;
-  if (error) return <p>Error: {error}</p>;
-  console.log(location);
-
+  // Function to format the prayer times
   const formatTime = (time) => {
     return time.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
   };
 
   return (
-    <div>
-      <h3 className="text-md text-stone-600 mb-5">
-        Location: {location.city}, {location.country}
-      </h3>
-      {Object.entries(prayerTimes).map(([prayer, time]) => (
-        <ul key={prayer}>
-          <span>{`${prayer}: `}</span>
-          <span>{`${formatTime(time)}`}</span>
-        </ul>
-      ))}
+    <div className="p-5 bg-white border border-slate-200 rounded-md shadow-md">
+      {loading ? (
+        <div className="text-center font-bold text-xl p-5 text-[#1AA599]">
+          Loading prayer times...
+        </div>
+      ) : (
+        <>
+          {error && (
+            <div className="text-red-500 mb-4" aria-live="polite">
+              Error: {error}
+            </div>
+          )}
+
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="text-lg font-semibold text-[#1AA599]">Salah</h3>
+            <h3 className="text-lg font-semibold text-[#1AA599]">Begins</h3>
+          </div>
+
+          {Object.entries(prayerTimes).map(([prayer, time]) => (
+            <div
+              key={prayer}
+              className="border bg-white border-slate-200 p-3 rounded-md flex justify-between items-center my-3 gap-52"
+            >
+              <span className="font-medium text-gray-800">{prayer}</span>
+              <span className="text-sm text-gray-600">{formatTime(time)}</span>
+            </div>
+          ))}
+        </>
+      )}
     </div>
   );
 };

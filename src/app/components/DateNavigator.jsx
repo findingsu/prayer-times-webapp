@@ -5,7 +5,7 @@ import { useAppContext } from "../../context";
 
 export const DateNavigator = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const { fetchPrayerTimes } = useAppContext();
+  const { location, fetchPrayerTimes } = useAppContext();
 
   useEffect(() => {
     fetchPrayerTimes(currentDate);
@@ -29,11 +29,15 @@ export const DateNavigator = () => {
   };
 
   return (
-    <div className="flex gap-5">
-      <button onClick={() => handleDateChange(-1)}>&lt;</button>
-      <p>{getFormattedDate(currentDate)}</p>
-      <button onClick={() => handleDateChange(1)}>&gt;</button>
-    </div>
+    <>
+      <div className="flex gap-5 p-3">
+        <button onClick={() => handleDateChange(-1)}>&lt;</button>
+        <h3 className=" text-xl font-medium">
+          {getFormattedDate(currentDate)}
+        </h3>
+        <button onClick={() => handleDateChange(1)}>&gt;</button>
+      </div>
+    </>
   );
 };
 
