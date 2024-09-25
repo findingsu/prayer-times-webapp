@@ -44,10 +44,10 @@ export const Settings = () => {
   };
 
   return (
-    <div className="flex">
+    <div>
       <button
         onClick={toggleSettings}
-        className="m-5 p-3 bg-slate-100 rounded-lg"
+        className="m-5 p-3 bg-slate-200 rounded-lg"
       >
         Settings
       </button>

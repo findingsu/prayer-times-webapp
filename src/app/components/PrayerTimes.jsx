@@ -19,7 +19,10 @@ export const PrayerTimes = () => {
   };
 
   return (
-    <div className="p-5 bg-white border border-slate-200 rounded-md shadow-md">
+    <section
+      id="home"
+      className="p-5 bg-white border border-slate-200 rounded-md shadow-md"
+    >
       {loading ? (
         <div className="text-center font-bold text-xl p-5 text-[#1AA599]">
           Loading prayer times...
@@ -48,7 +51,7 @@ export const PrayerTimes = () => {
           ))}
         </>
       )}
-    </div>
+    </section>
   );
 };
 

@@ -2,15 +2,15 @@
 
 import { DateNavigator } from "./components/DateNavigator";
 import { PrayerTimes } from "./components/PrayerTimes";
-import { Settings } from "./components/Settings";
 import { useAppContext } from "../context";
+import Navbar from "./components/NavBar";
 
 export default function Home() {
   const { location, loading } = useAppContext();
 
   return (
     <>
-      <Settings />
+      <Navbar />
       <main className="flex flex-col items-center justify-center gap-5">
         <h1 className="text-4xl font-bold">Prayer Times</h1>
         <DateNavigator />

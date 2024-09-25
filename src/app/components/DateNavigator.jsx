@@ -5,7 +5,7 @@ import { useAppContext } from "../../context";
 
 export const DateNavigator = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const { location, fetchPrayerTimes } = useAppContext();
+  const { fetchPrayerTimes } = useAppContext();
 
   useEffect(() => {
     fetchPrayerTimes(currentDate);
