@@ -2,6 +2,7 @@
 
 import React, { useEffect } from "react";
 import { useAppContext } from "../../context";
+import Image from "next/image";
 
 export const PrayerTimes = () => {
   const { prayerTimes, fetchPrayerTimes, location, loading, error } =
@@ -56,11 +57,13 @@ export const PrayerTimes = () => {
               >
                 {/* Icons */}
                 <div className="flex justify-center mb-3 h-20">
-                  <img
+                  <Image
                     src={
                       prayerIcons[prayer] || "/assets/icons/default-icon.svg"
                     }
                     alt={prayer}
+                    width={500}
+                    height={500}
                     className="w-12 h-12"
                   />
                 </div>

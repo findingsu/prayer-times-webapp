@@ -5,7 +5,7 @@ const nextConfig = {
   basePath: process.env.NODE_ENV === "production" ? "/prayer-times-webapp" : "",
   assetPrefix:
     process.env.NODE_ENV === "production" ? "/prayer-times-webapp/" : "",
-  distDir: "out",
+  images: { unoptimized: true },
 };
 
 export default nextConfig;
