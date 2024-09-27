@@ -17,15 +17,7 @@ export default function Home() {
         <NavBar />
         <HeroSection />
         <DateNavigator />
-        {loading ? (
-          <p>Loading location...</p>
-        ) : location ? (
-          <h1 className="text-lg font-medium text-gray-600">
-            Location: {location.city}, {location.country}
-          </h1>
-        ) : (
-          <p>Location not available</p>
-        )}
+        
         <PrayerTimes />
       </main>
     </>
