@@ -2,8 +2,9 @@
 
 const nextConfig = {
   output: "export",
-  basePath: process.env.NODE_ENV === "production" ? "/portfolio" : "",
-  assetPrefix: process.env.NODE_ENV === "production" ? "/portfolio/" : "",
+  basePath: process.env.NODE_ENV === "production" ? "/prayer-times-webapp" : "",
+  assetPrefix:
+    process.env.NODE_ENV === "production" ? "/prayer-times-webapp/" : "",
   distDir: "out",
 };
 
