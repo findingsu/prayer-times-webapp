@@ -18,11 +18,17 @@ export const PrayerTimes = () => {
     return time.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
   };
 
+  const prayerIcons = {
+    Fajr: "/assets/icons/fajr.svg",
+    Sunrise: "assets/icons/sunrise.svg",
+    Dhuhr: "/assets/icons/dhuhr.svg",
+    Asr: "/assets/icons/asr.svg",
+    Maghrib: "/assets/icons/maghrib.svg",
+    Isha: "/assets/icons/isha.svg",
+  };
+
   return (
-    <section
-      id="home"
-      className="p-5 bg-white border border-slate-200 rounded-md shadow-md"
-    >
+    <section id="home" className="px-10 py-4 bg-gray-50 w-screen">
       {loading ? (
         <div className="text-center font-bold text-xl p-5 text-[#1AA599]">
           Loading prayer times...
@@ -35,20 +41,37 @@ export const PrayerTimes = () => {
             </div>
           )}
 
-          <div className="flex justify-between items-center mb-4">
-            <h3 className="text-lg font-semibold text-[#1AA599]">Salah</h3>
-            <h3 className="text-lg font-semibold text-[#1AA599]">Begins</h3>
-          </div>
+          {/* Title */}
+          <h1 className="text-4xl font-bold text-[#2D3748] text-center mb-5">
+            Today's Prayer Times
+          </h1>
 
-          {Object.entries(prayerTimes).map(([prayer, time]) => (
-            <div
-              key={prayer}
-              className="border bg-white border-slate-200 p-3 rounded-md flex justify-between items-center my-3 gap-52"
-            >
-              <span className="font-medium text-gray-800">{prayer}</span>
-              <span className="text-sm text-gray-600">{formatTime(time)}</span>
-            </div>
-          ))}
+          {/* Updated Grid for Prayer Times */}
+          <div className="grid grid-cols-6 gap-8 ">
+            {Object.entries(prayerTimes).map(([prayer, time]) => (
+              <div
+                key={prayer}
+                className="bg-white h-full shadow-lg rounded-xl hover:shadow-xl transition-shadow border-none p-6 text-center"
+              >
+                {/* Icons */}
+
+                <div className="flex justify-center mb-3 h-20">
+                  <img
+                    src={prayerIcons[prayer] || "/path/to/default/icon.svg"}
+                    alt={prayer}
+                    className="w-12.1 h-12.1"
+                  />
+                </div>
+
+                <h3 className="font-semibold text-[#1A365D] mb-3 text-2xl">
+                  {prayer}
+                </h3>
+                <p className="text-2xl font-medium text-[#1b201eb5]">
+                  {formatTime(time)}
+                </p>
+              </div>
+            ))}
+          </div>
         </>
       )}
     </section>
