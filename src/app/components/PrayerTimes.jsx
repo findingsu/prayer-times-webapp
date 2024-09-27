@@ -19,14 +19,13 @@ export const PrayerTimes = () => {
     }
     return time.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
   };
-
   const prayerIcons = {
-    Fajr: "/icons/fajr.svg",
-    Sunrise: "/icons/sunrise.svg",
-    Dhuhr: "/icons/dhuhr.svg",
-    Asr: "/icons/asr.svg",
-    Maghrib: "/icons/maghrib.svg",
-    Isha: "/icons/isha.svg",
+    Fajr: "/assets/Fajr.svg",
+    Sunrise: "/assets/Sunrise.svg",
+    Dhuhr: "/assets/Dhuhr.svg",
+    Asr: "/assets/Asr.svg",
+    Maghrib: "/assets/Maghrib.svg",
+    Isha: "/assets/Isha.svg",
   };
 
   return (
