@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useState } from "react";
-// import { Settings } from "./Settings";
 
 export const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,18 +11,16 @@ export const NavBar = () => {
   };
 
   return (
-    <nav className="p-4">
+    <nav className="absolute top-0 left-0 w-full z-20 p-4 bg-transparent">
       <div className="container mx-auto flex justify-between items-center">
-        {/* Logo */}
-        <div className=" text-xl font-bold">
+        <div className="text-2xl font-bold text-white">
           <Link href="/">MyLogo</Link>
         </div>
 
-        {/* Hamburger Menu Icon for Mobile */}
         <div className="md:hidden block">
           <button onClick={toggleMenu} className="focus:outline-none">
             <svg
-              className="w-6 h-6"
+              className="w-6 h-6 text-white"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -39,18 +36,21 @@ export const NavBar = () => {
           </button>
         </div>
 
-        {/* Nav Links */}
         <ul
           className={`md:flex space-x-6 items-center ${
             isOpen ? "block" : "hidden"
           } md:block`}
         >
           <li>
-            <Link href="#home" className=" hover:text-gray-400">
+            <Link href="#home" className="text-white hover:text-gray-400">
               Prayer Times
             </Link>
           </li>
-          <li>{/* <Settings /> */}</li>
+          <li>
+            <Link href="#settings" className="text-white hover:text-gray-400">
+              Settings
+            </Link>
+          </li>
         </ul>
       </div>
     </nav>
