@@ -13,22 +13,24 @@ export const PrayerTimes = () => {
     }
   }, [location, fetchPrayerTimes]);
 
-  // Function to format the prayer times
   const formatTime = (time) => {
+    if (!(time instanceof Date)) {
+      time = new Date(time);
+    }
     return time.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
   };
 
   const prayerIcons = {
-    Fajr: "/assets/icons/fajr.svg",
-    Sunrise: "assets/icons/sunrise.svg",
-    Dhuhr: "/assets/icons/dhuhr.svg",
-    Asr: "/assets/icons/asr.svg",
-    Maghrib: "/assets/icons/maghrib.svg",
-    Isha: "/assets/icons/isha.svg",
+    Fajr: "/icons/fajr.svg",
+    Sunrise: "/icons/sunrise.svg",
+    Dhuhr: "/icons/dhuhr.svg",
+    Asr: "/icons/asr.svg",
+    Maghrib: "/icons/maghrib.svg",
+    Isha: "/icons/isha.svg",
   };
 
   return (
-    <section id="home" className="px-10 py-4 bg-gray-50 w-screen">
+    <section id="home" className="px-10 py-4w-screen">
       {loading ? (
         <div className="text-center font-bold text-xl p-5 text-[#1AA599]">
           Loading prayer times...
@@ -42,24 +44,25 @@ export const PrayerTimes = () => {
           )}
 
           {/* Title */}
-          <h1 className="text-4xl font-bold text-[#2D3748] text-center mb-5">
+          <h1 className="text-4xl font-bold text-[#2D3748] text-center">
             Today's Prayer Times
           </h1>
 
           {/* Updated Grid for Prayer Times */}
-          <div className="grid grid-cols-6 gap-8 ">
+          <div className="grid grid-cols-6 gap-5 w-screen px-10 py-5">
             {Object.entries(prayerTimes).map(([prayer, time]) => (
               <div
                 key={prayer}
-                className="bg-white h-full shadow-lg rounded-xl hover:shadow-xl transition-shadow border-none p-6 text-center"
+                className="bg-white h-full w-full shadow-lg rounded-xl hover:shadow-xl transition-shadow border-none p-6 text-center"
               >
                 {/* Icons */}
-
                 <div className="flex justify-center mb-3 h-20">
                   <img
-                    src={prayerIcons[prayer] || "/path/to/default/icon.svg"}
+                    src={
+                      prayerIcons[prayer] || "/assets/icons/default-icon.svg"
+                    }
                     alt={prayer}
-                    className="w-12.1 h-12.1"
+                    className="w-12 h-12"
                   />
                 </div>
 
