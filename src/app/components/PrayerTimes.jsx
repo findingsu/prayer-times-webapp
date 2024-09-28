@@ -60,9 +60,9 @@ export const PrayerTimes = () => {
             {Object.entries(prayerTimes).map(([prayer, time]) => (
               <div
                 key={prayer}
-                className={`h-full w-full shadow-lg rounded-xl p-6 text-center transition-shadow duration-300 ${
+                className={`h-full w-full shadow-lg rounded-xl p-6 text-center ${
                   currentPrayer.current === prayer
-                    ? "bg-[#FFC265] scale-110 shadow-2xl"
+                    ? "bg-[#FFC265] scale-110"
                     : "bg-white"
                 }`}
               >
@@ -77,7 +77,7 @@ export const PrayerTimes = () => {
                   />
                 </div>
 
-                <h3 className="font-semibold text-[#2D3748]  mb-3 text-2xl">
+                <h3 className="font-semibold text-[#2D3748] mb-3 text-2xl">
                   {prayer}
                 </h3>
                 <p className="text-2xl font-medium text-[#1b201eb5]">
