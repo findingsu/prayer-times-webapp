@@ -7,7 +7,7 @@ const HeroSection = () => {
   const { location, loading } = useAppContext();
 
   return (
-    <section className="relative w-full p-3 flex items-center">
+    <section className="relative w-screen p-3">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
@@ -15,16 +15,15 @@ const HeroSection = () => {
           alt="Hero Background"
           quality={75}
           fill
-          className="object-cover filter brightness-75 contrast-125"
           priority
         />
         <div className="absolute inset-0 bg-black/65" />
       </div>
 
       {/* Content Wrapper */}
-      <div className="relative z-10 w-full flex flex-col md:flex-row justify-around items-center gap-6 md:gap-20 p-5 md:p-14 text-white">
+      <div className="relative z-10 w-full flex justify-between items-center gap-6 p-5 md:p-14 text-white text-center">
         {/* Quran Verse Section */}
-        <div className="w-full p-5 bg-[#756f6f]/40 rounded-lg text-center md:text-left">
+        <div className="w-full max-w-2xl p-5 bg-[#756f6f]/40 rounded-lg">
           <h1 className="arabic text-3xl font-light text-[#e2e2e1]/90">
             سُبْحَـٰنَ ٱلَّذِىٓ أَسْرَىٰ بِعَبْدِهِۦ لَيْلًۭا مِّنَ ٱلْمَسْجِدِ
             ٱلْحَرَامِ إِلَى ٱلْمَسْجِدِ ٱلْأَقْصَا ٱلَّذِى بَـٰرَكْنَا
@@ -43,8 +42,8 @@ const HeroSection = () => {
         </div>
 
         {/* Location Pin and Current Prayers */}
-        <div className="w-full md:w-1/2 flex flex-col items-center gap-4">
-          <div className="w-full bg-[#575451b0] p-4 rounded-lg flex justify-between items-center text-[#1AA599]">
+        <div className="w-full max-w-lg">
+          <div className="w-full bg-[#575451b0] p-5 rounded-lg flex justify-between items-center text-[#1AA599] text-xl mb-5">
             {loading ? (
               <h1>Loading location...</h1>
             ) : location ? (

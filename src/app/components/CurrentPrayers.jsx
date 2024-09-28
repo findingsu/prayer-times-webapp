@@ -1,5 +1,5 @@
 "use client";
-import { useAppContext } from "../../context";
+import { useAppContext } from "@/context";
 import { useEffect, useState } from "react";
 
 const CurrentPrayers = () => {
@@ -54,16 +54,16 @@ const CurrentPrayers = () => {
   if (error) return <p>Error: {error}</p>;
 
   return (
-    <>
-      <div className="w-full bg-[#575451b0] p-3 rounded-lg z-10">
+    <div className="w-full z-10">
+      <div className=" bg-[#FFC265] rounded-lg p-5 text-[#4e5256] text-2xl font-semibold mb-5">
         <p>Now: {currentPrayer.current}</p>
       </div>
-      <div className="w-full bg-[#575451b0] p-3 rounded-lg text-white z-10">
+      <div className=" bg-[#575451b0] rounded-lg p-5 text-2xl">
         <p>
           {currentPrayer.next} in {timeUntilNextPrayer}
         </p>
       </div>
-    </>
+    </div>
   );
 };
 

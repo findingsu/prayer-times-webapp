@@ -5,8 +5,14 @@ import { useAppContext } from "../../context";
 import Image from "next/image";
 
 export const PrayerTimes = () => {
-  const { prayerTimes, fetchPrayerTimes, location, loading, error } =
-    useAppContext();
+  const {
+    prayerTimes,
+    fetchPrayerTimes,
+    location,
+    loading,
+    error,
+    currentPrayer,
+  } = useAppContext(); // Assuming currentPrayer is available in context
 
   useEffect(() => {
     if (location) {
@@ -20,6 +26,7 @@ export const PrayerTimes = () => {
     }
     return time.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
   };
+
   const prayerIcons = {
     Fajr: "/assets/Fajr.svg",
     Sunrise: "/assets/Sunrise.svg",
@@ -53,7 +60,11 @@ export const PrayerTimes = () => {
             {Object.entries(prayerTimes).map(([prayer, time]) => (
               <div
                 key={prayer}
-                className="bg-white h-full w-full shadow-lg rounded-xl hover:shadow-xl transition-shadow border-none p-6 text-center"
+                className={`h-full w-full shadow-lg rounded-xl p-6 text-center transition-shadow duration-300 ${
+                  currentPrayer.current === prayer
+                    ? "bg-[#FFC265] scale-110 shadow-2xl"
+                    : "bg-white"
+                }`}
               >
                 {/* Icons */}
                 <div className="flex justify-center mb-3">
@@ -66,7 +77,7 @@ export const PrayerTimes = () => {
                   />
                 </div>
 
-                <h3 className="font-semibold text-[#1A365D] mb-3 text-2xl">
+                <h3 className="font-semibold text-[#2D3748]  mb-3 text-2xl">
                   {prayer}
                 </h3>
                 <p className="text-2xl font-medium text-[#1b201eb5]">
