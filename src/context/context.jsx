@@ -19,22 +19,25 @@ export const AppProvider = ({ children }) => {
   } = useGeolocation();
 
   const [prayerTimes, setPrayerTimes] = useState({});
+  const [currentPrayer, setCurrentPrayer] = useState({});
   const [prayerTimesLoading, setPrayerTimesLoading] = useState(false);
   const [prayerTimesError, setPrayerTimesError] = useState(null);
 
+  // Fetch prayer times and current prayer
   const fetchPrayerTimes = useCallback(
     (date) => {
       if (location) {
         setPrayerTimesLoading(true);
         try {
-          const times = getPrayerTimes(
+          const { prayerObj, currentPrayerObj } = getPrayerTimes(
             location.latitude,
             location.longitude,
             date,
             settings.calculationMethod,
             settings.madhab
           );
-          setPrayerTimes(times);
+          setPrayerTimes(prayerObj); // Set prayer times
+          setCurrentPrayer(currentPrayerObj); // Set current and next prayer times
         } catch (error) {
           setPrayerTimesError(error.message);
         } finally {
@@ -55,7 +58,8 @@ export const AppProvider = ({ children }) => {
         settings,
         updateSettings,
         location,
-        prayerTimes,
+        prayerTimes, // All prayer times
+        currentPrayer, // Current and next prayer times
         fetchPrayerTimes,
         loading: locationLoading || prayerTimesLoading,
         error: locationError || prayerTimesError,
@@ -65,4 +69,5 @@ export const AppProvider = ({ children }) => {
     </AppContext.Provider>
   );
 };
+
 export const useAppContext = () => useContext(AppContext);

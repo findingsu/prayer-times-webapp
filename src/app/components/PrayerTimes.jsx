@@ -48,7 +48,7 @@ export const PrayerTimes = () => {
             Today's Prayer Times
           </h1>
 
-          {/* Grid for Prayer Times */}
+          {/* Updated Grid for Prayer Times */}
           <div className="grid grid-cols-6 gap-5 w-screen px-10 py-5">
             {Object.entries(prayerTimes).map(([prayer, time]) => (
               <div
