@@ -6,19 +6,15 @@ const HeroSection = () => {
   const { location, loading } = useAppContext();
 
   return (
-    <section className="relative h-[65vh] w-screen flex items-center">
+    <section className="relative w-screen flex items-center p-3">
       {/* Background Image */}
-
       <div className="absolute inset-0 z-0">
         <Image
           src="/assets/hero.jpeg"
           alt="Hero Background"
-          fill
-          sizes="100vw"
-          style={{
-            objectFit: "cover",
-          }}
           quality={75}
+          fill
+          style={{ objectFit: "cover" }}
           priority
           className="filter brightness-75 contrast-125"
         />

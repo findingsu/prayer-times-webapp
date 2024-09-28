@@ -11,7 +11,7 @@ export const NavBar = () => {
   };
 
   return (
-    <nav className="absolute top-0 left-0 w-full z-20 p-4 bg-transparent">
+    <nav className=" absolute top-0 w-screen z-20 p-4 bg-transparent">
       <div className="container mx-auto flex justify-between items-center">
         <div className="text-2xl font-bold text-white">
           <Link href="/">MyLogo</Link>

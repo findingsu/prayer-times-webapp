@@ -30,7 +30,7 @@ export const PrayerTimes = () => {
   };
 
   return (
-    <section id="home" className="px-10 py-4w-screen">
+    <section id="home" className="py-4 w-screen">
       {loading ? (
         <div className="text-center font-bold text-xl p-5 text-[#1AA599]">
           Loading prayer times...
@@ -48,7 +48,7 @@ export const PrayerTimes = () => {
             Today's Prayer Times
           </h1>
 
-          {/* Updated Grid for Prayer Times */}
+          {/* Grid for Prayer Times */}
           <div className="grid grid-cols-6 gap-5 w-screen px-10 py-5">
             {Object.entries(prayerTimes).map(([prayer, time]) => (
               <div
@@ -56,15 +56,13 @@ export const PrayerTimes = () => {
                 className="bg-white h-full w-full shadow-lg rounded-xl hover:shadow-xl transition-shadow border-none p-6 text-center"
               >
                 {/* Icons */}
-                <div className="flex justify-center mb-3 h-20">
+                <div className="flex justify-center mb-3">
                   <Image
-                    src={
-                      prayerIcons[prayer] || "/assets/icons/default-icon.svg"
-                    }
+                    src={prayerIcons[prayer]}
                     alt={prayer}
-                    width={500}
-                    height={500}
-                    className="w-12 h-12"
+                    width={100}
+                    height={100}
+                    className="h-20 object-contain"
                   />
                 </div>
 

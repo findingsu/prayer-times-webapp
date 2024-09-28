@@ -24,9 +24,10 @@ body {
 .arabic {
   font-family: "Noto Naskh Arabic";
   line-height: 5rem;
-  letter-spacing: 3px;
+  letter-spacing: 2.8px;
 }
 
 .translation {
-  line-height: 3rem;
+  line-height: 4rem;
+  letter-spacing: 2px;
 }

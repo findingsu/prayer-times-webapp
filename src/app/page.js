@@ -7,7 +7,7 @@ import NavBar from "./components/NavBar";
 
 export default function Home() {
   return (
-    <main className="flex flex-col items-center justify-center gap-5">
+    <main className="w-screen h-screen">
       <NavBar />
       <HeroSection />
       <DateNavigator />
