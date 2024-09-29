@@ -40,5 +40,3 @@ export const getPrayerTimes = (latitude, longitude, date, method, madhab) => {
     currentPrayerObj,
   };
 };
-
-export default getPrayerTimes;

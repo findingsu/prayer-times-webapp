@@ -2,8 +2,9 @@
 
 import { useAppContext } from "@/context";
 import { useEffect, useState } from "react";
+import { calculateTimeDifference } from "@/utils";
 
-const CurrentPrayers = () => {
+export const CurrentPrayers = () => {
   const { location, currentPrayer, fetchPrayerTimes, loading, error } =
     useAppContext();
 
@@ -14,19 +15,6 @@ const CurrentPrayers = () => {
       fetchPrayerTimes(new Date());
     }
   }, [location, fetchPrayerTimes]);
-
-  const calculateTimeDifference = (nextPrayerTime) => {
-    const now = new Date();
-    const nextPrayer = new Date(nextPrayerTime);
-
-    const diffInMs = nextPrayer - now;
-
-    const hours = Math.floor(diffInMs / (1000 * 60 * 60));
-    const minutes = Math.floor((diffInMs % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((diffInMs % (1000 * 60)) / 1000);
-
-    return `${hours}h ${minutes}m ${seconds}s`;
-  };
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -63,5 +51,3 @@ const CurrentPrayers = () => {
     </div>
   );
 };
-
-export default CurrentPrayers;

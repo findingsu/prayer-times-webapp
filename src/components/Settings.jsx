@@ -21,10 +21,14 @@ const SELECT_OPTIONS = {
 const SelectField = ({ label, value, options, onChange }) => (
   <div className="flex gap-5 mb-4">
     <p className="font-bold">{label}</p>
-    <select value={value} onChange={onChange} className="border rounded-md">
-      {options.map(({ value, label }) => (
-        <option key={value} value={value}>
-          {label}
+    <select
+      className="border rounded-md px-2 py-1"
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+    >
+      {options.map((option) => (
+        <option key={option.value} value={option.value}>
+          {option.label}
         </option>
       ))}
     </select>
@@ -33,39 +37,39 @@ const SelectField = ({ label, value, options, onChange }) => (
 
 export const Settings = () => {
   const { settings, updateSettings } = useAppContext();
-  const [isOpen, setIsOpen] = useState(false);
+  const [selectedMethod, setSelectedMethod] = useState(
+    settings.calculationMethod
+  );
+  const [selectedMadhab, setSelectedMadhab] = useState(settings.madhab);
 
-  const handleSettingChange = (setting) => (e) => {
-    updateSettings({ [setting]: e.target.value });
-  };
-
-  const toggleSettings = () => {
-    setIsOpen(!isOpen);
+  const handleSave = () => {
+    updateSettings({
+      calculationMethod: selectedMethod,
+      madhab: selectedMadhab,
+    });
   };
 
   return (
-    <div>
+    <section id="settings" className="p-5">
+      <h1 className="text-4xl font-bold mb-4">Settings</h1>
+      <SelectField
+        label="Calculation Method"
+        value={selectedMethod}
+        options={SELECT_OPTIONS.calculationMethod}
+        onChange={setSelectedMethod}
+      />
+      <SelectField
+        label="Madhab"
+        value={selectedMadhab}
+        options={SELECT_OPTIONS.madhab}
+        onChange={setSelectedMadhab}
+      />
       <button
-        onClick={toggleSettings}
-        className="m-5 p-3 bg-slate-200 rounded-lg"
+        onClick={handleSave}
+        className="mt-4 bg-[#1AA599] text-white py-2 px-4 rounded"
       >
-        Settings
+        Save Settings
       </button>
-      {isOpen && (
-        <div className="p-5 m-5 w-1/4 bg-white rounded-lg border border-slate-200">
-          {Object.entries(SELECT_OPTIONS).map(([setting, options]) => (
-            <SelectField
-              key={setting}
-              label={
-                setting === "calculationMethod" ? "Calculation:" : "Madhab:"
-              }
-              value={settings[setting]}
-              options={options}
-              onChange={handleSettingChange(setting)}
-            />
-          ))}
-        </div>
-      )}
-    </div>
+    </section>
   );
 };

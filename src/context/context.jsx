@@ -7,11 +7,11 @@ import {
   useCallback,
   useEffect,
 } from "react";
-
 import { getPrayerTimes, getGeolocation } from "@/utils";
 
 const AppContext = createContext();
 
+// App provider component
 export const AppProvider = ({ children }) => {
   const [settings, setSettings] = useState({
     calculationMethod: "MoonsightingCommittee",
@@ -30,6 +30,7 @@ export const AppProvider = ({ children }) => {
   const [prayerTimesLoading, setPrayerTimesLoading] = useState(false);
   const [prayerTimesError, setPrayerTimesError] = useState(null);
 
+  // Fetch user's geolocation
   const fetchLocation = useCallback(async () => {
     setLocationLoading(true);
     setLocationError(null);
@@ -40,20 +41,23 @@ export const AppProvider = ({ children }) => {
         setLocationError(error);
       }
     } catch (err) {
-      setLocationError(err.message);
+      setLocationError(err.message || "Failed to fetch location");
     } finally {
       setLocationLoading(false);
     }
   }, []);
 
+  // Fetch location on mount
   useEffect(() => {
     fetchLocation();
   }, [fetchLocation]);
 
+  // Fetch prayer times
   const fetchPrayerTimes = useCallback(
-    (date) => {
+    async (date) => {
       if (location) {
         setPrayerTimesLoading(true);
+        setPrayerTimesError(null);
         try {
           const { prayerObj, currentPrayerObj } = getPrayerTimes(
             location.latitude,
@@ -65,7 +69,7 @@ export const AppProvider = ({ children }) => {
           setPrayerTimes(prayerObj);
           setCurrentPrayer(currentPrayerObj);
         } catch (error) {
-          setPrayerTimesError(error.message);
+          setPrayerTimesError(error.message || "Failed to fetch prayer times");
         } finally {
           setPrayerTimesLoading(false);
         }
@@ -74,6 +78,7 @@ export const AppProvider = ({ children }) => {
     [location, settings]
   );
 
+  // Update settings for the app
   const updateSettings = useCallback((newSettings) => {
     setSettings((prev) => ({ ...prev, ...newSettings }));
   }, []);

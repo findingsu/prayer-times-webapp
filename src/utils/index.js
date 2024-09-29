@@ -1,2 +1,3 @@
-export { default as getPrayerTimes } from "./getPrayerTimes";
-export { default as getGeolocation } from "./getGeoLocation";
+export { getGeolocation } from "./getGeolocation";
+export { getPrayerTimes } from "./getPrayerTimes";
+export { calculateTimeDifference } from "./calculateTimeDifference";

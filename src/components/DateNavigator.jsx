@@ -40,5 +40,3 @@ export const DateNavigator = () => {
     </>
   );
 };
-
-export default DateNavigator;

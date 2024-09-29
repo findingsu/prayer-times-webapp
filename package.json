@@ -10,9 +10,8 @@
   },
   "dependencies": {
     "adhan": "^4.4.3",
+    "date-fns": "^4.1.0",
     "lucide-react": "^0.446.0",
-    "moment": "^2.30.1",
-    "moment-timezone": "^0.5.45",
     "next": "14.2.13",
     "react": "^18",
     "react-dom": "^18"

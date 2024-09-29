@@ -28,5 +28,3 @@ export const getGeolocation = async () => {
     };
   }
 };
-
-export default getGeolocation;

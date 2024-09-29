@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 import { useAppContext } from "@/context";
 import Image from "next/image";
-import moment from "moment";
+import { format } from "date-fns";
 
 export const PrayerTimes = () => {
   const {
@@ -30,6 +30,13 @@ export const PrayerTimes = () => {
     Isha: "/assets/Isha.svg",
   };
 
+  const formatPrayerTime = (time) => {
+    if (!(time instanceof Date)) {
+      return "Invalid time";
+    }
+    return format(time, "hh:mm a");
+  };
+
   return (
     <section id="home" className="py-4 w-screen">
       {loading ? (
@@ -43,24 +50,15 @@ export const PrayerTimes = () => {
               Error: {error}
             </div>
           )}
-
-          {/* Title */}
           <h1 className="text-4xl font-bold text-[#2D3748] text-center">
             Today's Prayer Times
           </h1>
-
-          {/* Updated Grid for Prayer Times */}
           <div className="grid grid-cols-6 gap-5 w-screen px-10 py-5">
             {Object.entries(prayerTimes).map(([prayer, time]) => (
               <div
                 key={prayer}
-                className={`h-full w-full shadow-lg rounded-xl p-6 text-center ${
-                  currentPrayer.current === prayer
-                    ? "bg-[#FFC265] scale-110"
-                    : "bg-white"
-                }`}
+                className="h-full w-full shadow-lg rounded-xl p-6 text-center bg-white"
               >
-                {/* Icons */}
                 <div className="flex justify-center mb-3">
                   <Image
                     src={prayerIcons[prayer]}
@@ -70,12 +68,11 @@ export const PrayerTimes = () => {
                     className="h-20 w-auto object-contain"
                   />
                 </div>
-
                 <h3 className="font-semibold text-[#2D3748] mb-3 text-2xl">
                   {prayer}
                 </h3>
                 <p className="text-2xl font-medium text-[#1b201eb5]">
-                  {moment(time).format("LT")}
+                  {formatPrayerTime(time)}
                 </p>
               </div>
             ))}
@@ -85,5 +82,3 @@ export const PrayerTimes = () => {
     </section>
   );
 };
-
-export default PrayerTimes;
