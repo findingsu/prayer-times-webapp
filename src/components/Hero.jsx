@@ -9,14 +9,15 @@ export const Hero = () => {
   const { location, loading } = useAppContext();
 
   return (
-    <section className="relative w-screen p-3">
+    <section className="relative w-screen h-[65vh] p-3">
       <div className="absolute inset-0 z-0">
         <Image
           src="/assets/hero.jpeg"
           alt="Hero Background"
-          quality={75}
+          quality={100}
           fill
           priority
+          className="object-cover"
         />
         <div className="absolute inset-0 bg-black/65" />
       </div>
