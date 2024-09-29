@@ -50,7 +50,7 @@ export const Settings = () => {
   };
 
   return (
-    <section id="settings" className="p-5">
+    <section id="settings" className="p-10">
       <h1 className="text-4xl font-bold mb-4">Settings</h1>
       <SelectField
         label="Calculation Method"

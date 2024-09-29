@@ -38,7 +38,7 @@ export const PrayerTimes = () => {
   };
 
   return (
-    <section id="home" className="py-4 w-screen">
+    <section id="home" className="w-screen">
       {loading ? (
         <div className="text-center font-bold text-xl p-5 text-[#1AA599]">
           Loading prayer times...
