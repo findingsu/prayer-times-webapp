@@ -1,4 +1,4 @@
-export const useGeolocation = async () => {
+export const getGeolocation = async () => {
   try {
     const position = await new Promise((resolve, reject) => {
       navigator.geolocation.getCurrentPosition(resolve, reject);
@@ -29,4 +29,4 @@ export const useGeolocation = async () => {
   }
 };
 
-export default useGeolocation;
+export default getGeolocation; // Default export

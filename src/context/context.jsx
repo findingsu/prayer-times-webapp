@@ -8,7 +8,7 @@ import {
   useEffect,
 } from "react";
 
-import { getPrayerTimes, useGeolocation } from "@/utils";
+import { getPrayerTimes, getGeolocation } from "@/utils";
 
 const AppContext = createContext();
 
@@ -30,25 +30,25 @@ export const AppProvider = ({ children }) => {
   const [prayerTimesLoading, setPrayerTimesLoading] = useState(false);
   const [prayerTimesError, setPrayerTimesError] = useState(null);
 
-  useEffect(() => {
-    const fetchLocation = async () => {
-      setLocationLoading(true);
-      setLocationError(null);
-      try {
-        const { location: loc, error } = await useGeolocation();
-        setLocation(loc);
-        if (error) {
-          setLocationError(error);
-        }
-      } catch (err) {
-        setLocationError(err.message);
-      } finally {
-        setLocationLoading(false);
+  const fetchLocation = useCallback(async () => {
+    setLocationLoading(true);
+    setLocationError(null);
+    try {
+      const { location: loc, error } = await getGeolocation(); // Changed from useGeolocation to getGeolocation
+      setLocation(loc);
+      if (error) {
+        setLocationError(error);
       }
-    };
-
-    fetchLocation();
+    } catch (err) {
+      setLocationError(err.message);
+    } finally {
+      setLocationLoading(false);
+    }
   }, []);
+
+  useEffect(() => {
+    fetchLocation();
+  }, [fetchLocation]);
 
   const fetchPrayerTimes = useCallback(
     (date) => {

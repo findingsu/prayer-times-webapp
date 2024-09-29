@@ -12,8 +12,6 @@ export const getPrayerTimes = (latitude, longitude, date, method, madhab) => {
   let nextPrayerTime = prayerTimes.timeForPrayer(nextPrayer);
 
   if (currentPrayer === "isha") {
-    currentPrayer = "Isha";
-
     const tomorrow = new Date(date);
     tomorrow.setDate(tomorrow.getDate() + 1);
 

@@ -3,7 +3,7 @@
     "baseUrl": "src",
     "paths": {
       "@/*": ["*"],  // Alias for the root of src
-      "@/components/*": ["components/*"]  // Alias for components
+      "@/components/*": ["components/*"],  // Alias for components
     }
   }
 }
