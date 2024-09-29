@@ -34,7 +34,7 @@ export const AppProvider = ({ children }) => {
     setLocationLoading(true);
     setLocationError(null);
     try {
-      const { location: loc, error } = await getGeolocation(); // Changed from useGeolocation to getGeolocation
+      const { location: loc, error } = await getGeolocation();
       setLocation(loc);
       if (error) {
         setLocationError(error);
