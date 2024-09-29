@@ -1,5 +1,3 @@
-// src/app/layout.js
-
 import { AppProvider } from "../context";
 import "../styles/globals.css";
 

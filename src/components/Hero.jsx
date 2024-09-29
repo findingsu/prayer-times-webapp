@@ -1,9 +1,11 @@
+"use client";
+
 import { MapPinIcon } from "lucide-react";
 import Image from "next/image";
 import { useAppContext } from "@/context";
 import CurrentPrayers from "./CurrentPrayers";
 
-const HeroSection = () => {
+const Hero = () => {
   const { location, loading } = useAppContext();
 
   return (
@@ -62,4 +64,4 @@ const HeroSection = () => {
   );
 };
 
-export default HeroSection;
+export default Hero;

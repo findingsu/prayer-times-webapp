@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useAppContext } from "../../context";
+import { useAppContext } from "../context";
 
 export const DateNavigator = () => {
   const [currentDate, setCurrentDate] = useState(new Date());

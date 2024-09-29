@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { useAppContext } from "../../context";
+import { useAppContext } from "@/context";
 import Image from "next/image";
+import moment from "moment";
 
 export const PrayerTimes = () => {
   const {
@@ -12,20 +13,13 @@ export const PrayerTimes = () => {
     loading,
     error,
     currentPrayer,
-  } = useAppContext(); // Assuming currentPrayer is available in context
+  } = useAppContext();
 
   useEffect(() => {
     if (location) {
       fetchPrayerTimes(new Date());
     }
   }, [location, fetchPrayerTimes]);
-
-  const formatTime = (time) => {
-    if (!(time instanceof Date)) {
-      time = new Date(time);
-    }
-    return time.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-  };
 
   const prayerIcons = {
     Fajr: "/assets/Fajr.svg",
@@ -73,7 +67,7 @@ export const PrayerTimes = () => {
                     alt={prayer}
                     width={100}
                     height={100}
-                    className="h-20 object-contain"
+                    className="h-20 w-auto object-contain"
                   />
                 </div>
 
@@ -81,7 +75,7 @@ export const PrayerTimes = () => {
                   {prayer}
                 </h3>
                 <p className="text-2xl font-medium text-[#1b201eb5]">
-                  {formatTime(time)}
+                  {moment(time).format("LT")}
                 </p>
               </div>
             ))}

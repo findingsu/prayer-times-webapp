@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { useAppContext } from "../../context";
+import { useAppContext } from "@/context";
 
 const SELECT_OPTIONS = {
   calculationMethod: [

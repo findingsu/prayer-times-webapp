@@ -1,4 +1,5 @@
 "use client";
+
 import { useAppContext } from "@/context";
 import { useEffect, useState } from "react";
 
@@ -38,17 +39,6 @@ const CurrentPrayers = () => {
 
     return () => clearInterval(interval);
   }, [currentPrayer.nextPrayerTime]);
-
-  const formatTime = (time) => {
-    if (!(time instanceof Date)) {
-      time = new Date(time);
-    }
-    return time.toLocaleTimeString([], {
-      hour: "2-digit",
-      minute: "2-digit",
-      seconds: "2-digit",
-    });
-  };
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;

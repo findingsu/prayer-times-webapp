@@ -1,7 +1,14 @@
 "use client";
 
-import { createContext, useContext, useState, useCallback } from "react";
-import { useGeolocation, getPrayerTimes } from "../utils/prayerCalculations";
+import {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  useEffect,
+} from "react";
+
+import { getPrayerTimes, useGeolocation } from "@/utils";
 
 const AppContext = createContext();
 
@@ -12,18 +19,37 @@ export const AppProvider = ({ children }) => {
     timeFormat: "24h",
   });
 
-  const {
-    location,
-    loading: locationLoading,
-    error: locationError,
-  } = useGeolocation();
+  // Geolocation states
+  const [location, setLocation] = useState(null);
+  const [locationLoading, setLocationLoading] = useState(true);
+  const [locationError, setLocationError] = useState(null);
 
+  // Prayer Times states
   const [prayerTimes, setPrayerTimes] = useState({});
   const [currentPrayer, setCurrentPrayer] = useState({});
   const [prayerTimesLoading, setPrayerTimesLoading] = useState(false);
   const [prayerTimesError, setPrayerTimesError] = useState(null);
 
-  // Fetch prayer times and current prayer
+  useEffect(() => {
+    const fetchLocation = async () => {
+      setLocationLoading(true);
+      setLocationError(null);
+      try {
+        const { location: loc, error } = await useGeolocation();
+        setLocation(loc);
+        if (error) {
+          setLocationError(error);
+        }
+      } catch (err) {
+        setLocationError(err.message);
+      } finally {
+        setLocationLoading(false);
+      }
+    };
+
+    fetchLocation();
+  }, []);
+
   const fetchPrayerTimes = useCallback(
     (date) => {
       if (location) {
@@ -36,8 +62,8 @@ export const AppProvider = ({ children }) => {
             settings.calculationMethod,
             settings.madhab
           );
-          setPrayerTimes(prayerObj); // Set prayer times
-          setCurrentPrayer(currentPrayerObj); // Set current and next prayer times
+          setPrayerTimes(prayerObj);
+          setCurrentPrayer(currentPrayerObj);
         } catch (error) {
           setPrayerTimesError(error.message);
         } finally {
@@ -58,8 +84,10 @@ export const AppProvider = ({ children }) => {
         settings,
         updateSettings,
         location,
-        prayerTimes, // All prayer times
-        currentPrayer, // Current and next prayer times
+        locationLoading,
+        locationError,
+        prayerTimes,
+        currentPrayer,
         fetchPrayerTimes,
         loading: locationLoading || prayerTimesLoading,
         error: locationError || prayerTimesError,
