@@ -11,13 +11,30 @@ export const NavBar = () => {
   };
 
   return (
-    <nav className="absolute top-0 w-screen z-20 p-4 border">
-      <div className="inline-flex w-full justify-between border">
-        <div className="text-2xl font-bold text-white mr-auto border">
+    <header className="fixed top-0 left-0 w-full z-20 bg-transparent">
+      <nav className="w-full flex items-center justify-between p-5 lg:px-6 text-white bg-transparent">
+        {/* Logo */}
+        <div className="logo text-2xl py-2 px-4 font-bold">
           <Link href="/">MyLogo</Link>
         </div>
-        {/* Dropdown for small screens */}
-        <div className="relative md:hidden">
+
+        <div className="hidden lg:flex space-x-4">
+          <Link
+            href="#home"
+            className="text-lg text-white  hover:bg-gray-500 px-4 py-2 rounded-md"
+          >
+            Prayer Times
+          </Link>
+          <Link
+            href="#settings"
+            className="text-lg text-white hover:bg-gray-500 px-4 py-2 rounded-md"
+          >
+            Settings
+          </Link>
+        </div>
+
+        {/* Mobile Menu */}
+        <div className="block lg:hidden">
           <button onClick={toggleMenu} className="focus:outline-none">
             <svg
               className="w-6 h-6 text-white"
@@ -34,8 +51,9 @@ export const NavBar = () => {
               ></path>
             </svg>
           </button>
+
           {isOpen && (
-            <ul className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10">
+            <ul className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10 ">
               <li>
                 <Link
                   href="#home"
@@ -55,22 +73,7 @@ export const NavBar = () => {
             </ul>
           )}
         </div>
-        {/* Links for medium and larger screens */}
-        <div className="hidden md:flex space-x-4">
-          <Link
-            href="#home"
-            className="text-sm text-white hover:bg-gray-500 px-4 py-2 rounded-md"
-          >
-            Prayer Times
-          </Link>
-          <Link
-            href="#settings"
-            className="text-sm text-white hover:bg-gray-500 px-4 py-2 rounded-md"
-          >
-            Settings
-          </Link>
-        </div>
-      </div>
-    </nav>
+      </nav>
+    </header>
   );
 };

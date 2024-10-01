@@ -3,13 +3,48 @@
 import { MapPinIcon } from "lucide-react";
 import Image from "next/image";
 import { useAppContext } from "@/context";
-import { CurrentPrayers } from "./CurrentPrayers";
+import { Button } from "@nextui-org/react";
+import { useEffect, useState } from "react";
+import { calculateTimeDifference } from "@/utils";
 
 export const Hero = () => {
-  const { location, loading } = useAppContext();
+  const { location, currentPrayer, fetchPrayerTimes, loading, error } =
+    useAppContext();
+
+  const [timeUntilNextPrayer, setTimeUntilNextPrayer] = useState(undefined);
+
+  useEffect(() => {
+    if (location) {
+      fetchPrayerTimes(new Date());
+    }
+  }, [location, fetchPrayerTimes]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (currentPrayer.nextPrayerTime) {
+        setTimeUntilNextPrayer(
+          calculateTimeDifference(currentPrayer.nextPrayerTime)
+        );
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [currentPrayer.nextPrayerTime]);
+
+  if (loading)
+    return <p className="text-center text-lg text-[#e2e2e1]">Loading...</p>;
+  if (error)
+    return <p className="text-center text-lg text-red-500">Error: {error}</p>;
+
+  const capitalizeFirstLetter = (string) => {
+    return string ? string.charAt(0).toUpperCase() + string.slice(1) : "";
+  };
+
+  const currentPrayerName = capitalizeFirstLetter(currentPrayer.current);
+  const nextPrayerName = capitalizeFirstLetter(currentPrayer.next);
 
   return (
-    <section className="relative w-screen min-h-[65vh] md:max-h-[calc(25vh-5rem)] sm:max-h-[calc(25vh-5rem)] p-3 flex items-center justify-center">
+    <section className="relative w-full min-h-[70vh] p-5 flex items-center justify-center">
       <div className="absolute inset-0 z-0">
         <Image
           src="/assets/hero.jpeg"
@@ -19,43 +54,35 @@ export const Hero = () => {
           priority
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-black/65" />
+        <div className="absolute inset-0 bg-black/50" />
       </div>
-      <div className="z-10 inline-flex w-screen justify-between items-center gap-6 p-8 md:p-14 text-white text-center transition-all duration-300 ease-in-out border">
-        {/* Quran quote - hidden on smaller screens */}
-        <div className="max-w-6xl w-full p-5 mx-auto bg-[#756f6f]/40 rounded-lg hidden xl:block transition-all duration-300 ease-in-out">
-          <h1 className="arabic text-2xl font-light text-[#e2e2e1]/90">
-            سُبْحَـٰنَ ٱلَّذِىٓ أَسْرَىٰ بِعَبْدِهِۦ لَيْلًۭا مِّنَ ٱلْمَسْجِدِ
-            ٱلْحَرَامِ إِلَى ٱلْمَسْجِدِ ٱلْأَقْصَا ٱلَّذِى بَـٰرَكْنَا
-            حَوْلَهُۥ لِنُرِيَهُۥ مِنْ ءَايَـٰتِنَآ ۚ إِنَّهُۥ هُوَ ٱلسَّمِيعُ
-            ٱلْبَصِيرُ &#1757;
-          </h1>
-          <h3 className="translation italic text-xs sm:text-sm md:text-lg lg:text-xl mt-2 md:mt-4 text-[#e2e2e1d3]/90">
-            "Glory be to the One Who took His servant ˹Muḥammad˺ by night from
-            the Sacred Mosque to the Farthest Mosque whose surroundings We have
-            blessed, so that We may show him some of Our signs. Indeed, He alone
-            is the All-Hearing, All-Seeing."
-          </h3>
-          <p className="text-base sm:text-lg md:text-xl font-semibold mt-3 md:mt-5 text-[#e2e2e1d3]/90">
-            Surah Al-Isra [17:1]
-          </p>
-        </div>
-
-        {/* Location and Current Prayers */}
-        <div className="w-full max-w-6xl mt-5 transition-all duration-300 ease-in-out">
-          <div className="w-full bg-[#575451b0] p-5 rounded-lg flex justify-center items-center gap-3 text-[#e2e2e1d3]/90 text-xl mb-5">
-            <MapPinIcon className="text-[#e2e2e1d3]/70 w-6 h-6 " />
+      <div className="relative z-10 w-full">
+        <h1 className="text-[#e2e2e1] text-4xl md:text-5xl font-bold text-center mb-5">
+          Your Prayer Times
+        </h1>
+        <div className="flex flex-col gap-3 justify-center items-center">
+          <div className="bg-[#575451] text-[#e2e2e1] text-xl rounded-lg p-5 flex items-center justify-center w-1/4">
+            <MapPinIcon className="h-5 w-5 mr-2" />
             {loading ? (
-              <h1>Loading location...</h1>
+              <p>Loading location...</p>
             ) : location ? (
-              <h1 className="font-semibold">
+              <p>
                 {location.city}, {location.country}
-              </h1>
+              </p>
             ) : (
               <p>Location not available</p>
             )}
           </div>
-          <CurrentPrayers />
+
+          <div className="bg-[#ffc165] text-[#4A3C31] rounded-lg p-5 text-xl font-semibold text-center shadow-lg w-1/4 ">
+            <p>Now: {currentPrayerName}</p>
+          </div>
+
+          <div className="bg-[#575451] rounded-lg p-5 text-[#e2e2e1] text-xl shadow-lg flex items-center justify-center w-1/4">
+            <p>
+              {nextPrayerName} in {timeUntilNextPrayer}
+            </p>
+          </div>
         </div>
       </div>
     </section>

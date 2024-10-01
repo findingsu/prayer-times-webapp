@@ -9,25 +9,27 @@
 
 
 :root {
-  --background: #f3f2ed;
+  --background: #e4e2dc;
   --foreground: #171717;
   --teal: #1AA599;
 }
 
+html{
+  background-color: var(--background);
+}
+
 body {
-  color: var(--foreground);
-  background: var(--background);
   font-family: "Noto Naskh Arabic", 'Lateef', 'Arial';
   scroll-behavior: smooth;
 }
 
 .arabic {
   font-family: "Noto Naskh Arabic";
-  line-height: 5rem;
-  letter-spacing: 2.8px;
+  line-height: 4rem;
+  letter-spacing: 1.5px;
 }
 
 .translation {
   line-height: 4rem;
-  letter-spacing: 2px;
+  letter-spacing: 0.5px;
 }

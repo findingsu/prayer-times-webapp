@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useAppContext } from "../context";
+import { format } from "date-fns";
 
 export const DateNavigator = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -11,32 +12,9 @@ export const DateNavigator = () => {
     fetchPrayerTimes(currentDate);
   }, [currentDate, fetchPrayerTimes]);
 
-  const handleDateChange = (increment) => {
-    setCurrentDate((prevDate) => {
-      const newDate = new Date(prevDate);
-      newDate.setDate(prevDate.getDate() + increment);
-      return newDate;
-    });
-  };
-
-  const getFormattedDate = (date) => {
-    return date.toLocaleDateString("en-UK", {
-      weekday: "long",
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    });
-  };
-
   return (
-    <>
-      <div className="flex gap-5 p-3">
-        <button onClick={() => handleDateChange(-1)}>&lt;</button>
-        <h3 className=" text-xl font-medium">
-          {getFormattedDate(currentDate)}
-        </h3>
-        <button onClick={() => handleDateChange(1)}>&gt;</button>
-      </div>
-    </>
+    <div className="text-xl font-medium bg-[#e2e2e1d3] p-3 rounded-xl">
+      <h3>{format(currentDate, "EEEE d MMM yyyy")}</h3>
+    </div>
   );
 };
