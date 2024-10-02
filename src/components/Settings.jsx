@@ -35,6 +35,30 @@ const SelectField = ({ label, value, options, onChange }) => (
   </div>
 );
 
+// Toggle button component for Madhab
+const ToggleButtonGroup = ({ label, value, options, onChange }) => {
+  return (
+    <div className="flex gap-5 mb-4 items-center">
+      <p className="font-bold">{label}</p>
+      <div className="flex gap-4">
+        {options.map((option) => (
+          <button
+            key={option.value}
+            onClick={() => onChange(option.value)}
+            className={`${
+              value === option.value
+                ? "bg-[#697170] text-white border-2 border-[#1AA599]"
+                : "bg-gray-200 text-gray-800"
+            } px-4 py-2 rounded-md focus:outline-none transition duration-300 hover:bg-[#697170] hover:text-white`}
+          >
+            {option.label}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 export const Settings = () => {
   const { settings, updateSettings } = useAppContext();
   const [selectedMethod, setSelectedMethod] = useState(
@@ -58,7 +82,8 @@ export const Settings = () => {
         options={SELECT_OPTIONS.calculationMethod}
         onChange={setSelectedMethod}
       />
-      <SelectField
+
+      <ToggleButtonGroup
         label="Madhab"
         value={selectedMadhab}
         options={SELECT_OPTIONS.madhab}

@@ -2,35 +2,42 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { Settings } from "@/components";
 
 export const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
+  const toggleSettings = () => {
+    setIsSettingsOpen(!isSettingsOpen);
+  };
+
   return (
-    <header className="fixed top-0 left-0 w-full z-20 bg-transparent">
+    <header className="fixed top-0 left-0 w-full z-30 bg-transparent">
       <nav className="w-full flex items-center justify-between p-5 lg:px-6 text-white bg-transparent">
         {/* Logo */}
         <div className="logo text-2xl py-2 px-4 font-bold">
           <Link href="/">MyLogo</Link>
         </div>
 
+        {/* Nav widescreen */}
         <div className="hidden lg:flex space-x-4">
           <Link
             href="#home"
-            className="text-lg text-white  hover:bg-gray-500 px-4 py-2 rounded-md"
+            className="text-lg text-white hover:bg-gray-500 px-4 py-2 rounded-md"
           >
             Prayer Times
           </Link>
-          <Link
-            href="#settings"
-            className="text-lg text-white hover:bg-gray-500 px-4 py-2 rounded-md"
+          <button
+            onClick={toggleSettings}
+            className="text-lg text-white hover:bg-gray-500 px-4 py-2 rounded-md focus:outline-none"
           >
             Settings
-          </Link>
+          </button>
         </div>
 
         {/* Mobile Menu */}
@@ -63,17 +70,33 @@ export const NavBar = () => {
                 </Link>
               </li>
               <li>
-                <Link
-                  href="#settings"
+                <button
+                  onClick={toggleSettings}
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 >
                   Settings
-                </Link>
+                </button>
               </li>
             </ul>
           )}
         </div>
       </nav>
+
+      {/* Show the Settings Component */}
+      {isSettingsOpen && (
+        <div className="fixed w-full h-full z-40 inset-0 bg-black/50 flex justify-center items-center">
+          <div className="bg-[--background] p-5 rounded-lg shadow-lg w-11/12 md:w-1/2 relative justify-center">
+            <button
+              onClick={toggleSettings}
+              className="absolute top-3 right-3 py-2 px-4 text-xl focus:outline-none hover:text-red-600 transition"
+            >
+              x
+            </button>
+
+            <Settings />
+          </div>
+        </div>
+      )}
     </header>
   );
 };
