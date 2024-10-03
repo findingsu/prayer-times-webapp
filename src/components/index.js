@@ -1,4 +1,4 @@
 export { Hero } from "./Hero";
 export { NavBar } from "./NavBar";
 export { PrayerTimes } from "./PrayerTimes";
-export { Settings } from "./Settings";
+export { SettingsModal } from "./Settings";

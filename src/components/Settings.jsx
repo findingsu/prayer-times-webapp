@@ -2,27 +2,15 @@
 
 import React, { useState } from "react";
 import { useAppContext } from "@/context";
-
-const SELECT_OPTIONS = {
-  calculationMethod: [
-    { value: "MuslimWorldLeague", label: "Muslim World League" },
-    { value: "MoonsightingCommittee", label: "Moonsighting Committee" },
-    { value: "NorthAmerica", label: "ISNA" },
-    { value: "Karachi", label: "Karachi" },
-    { value: "Egyptian", label: "Egyptian General Authority" },
-    { value: "UmmAlQura", label: "Umm al-Qura University" },
-  ],
-  madhab: [
-    { value: "Shafi", label: "Shafi (Standard)" },
-    { value: "Hanafi", label: "Hanafi" },
-  ],
-};
+import { prayerTimeSettings } from "@/utils";
+import { X } from "lucide-react";
+import { Link } from "@nextui-org/react";
 
 const SelectField = ({ label, value, options, onChange }) => (
-  <div className="flex gap-5 mb-4">
-    <p className="font-bold">{label}</p>
+  <div className="grid grid-cols-2 gap-2 py-3 items-center justify-center">
+    <p className="font-bold text-lg text-[--lightBrownTxt]">{label}</p>
     <select
-      className="border rounded-md px-2 py-1"
+      className="border rounded-md px-4 py-2 text-md"
       value={value}
       onChange={(e) => onChange(e.target.value)}
     >
@@ -35,31 +23,33 @@ const SelectField = ({ label, value, options, onChange }) => (
   </div>
 );
 
-// Toggle button component for Madhab
-const ToggleButtonGroup = ({ label, value, options, onChange }) => {
-  return (
-    <div className="flex gap-5 mb-4 items-center">
-      <p className="font-bold">{label}</p>
-      <div className="flex gap-4">
-        {options.map((option) => (
-          <button
-            key={option.value}
-            onClick={() => onChange(option.value)}
-            className={`${
-              value === option.value
-                ? "bg-[#697170] text-white border-2 border-[#1AA599]"
-                : "bg-gray-200 text-gray-800"
-            } px-4 py-2 rounded-md focus:outline-none transition duration-300 hover:bg-[#697170] hover:text-white`}
-          >
-            {option.label}
-          </button>
-        ))}
-      </div>
+const MadhabToggleBtn = ({ label, value, options, onChange }) => (
+  <div className="grid grid-cols-2 gap-2 py-3">
+    <div>
+      <p className="font-bold text-lg text-[--lightBrownTxt]">{label}</p>
     </div>
-  );
-};
+    <div className="flex gap-4">
+      {options.map((option) => (
+        <button
+          key={option.value}
+          onClick={() => onChange(option.value)}
+          type="button"
+          className={`
+            ${
+              value === option.value
+                ? "bg-[--brownBg] text-[--beigeTxt]"
+                : "bg-[--lightBrownBg] text-[darkBrownTxt] hover:bg-[--brownBgHover] hover:text-[darkBrownTxt]"
+            } px-4 py-2 text-md rounded-md focus:outline-none transition duration-300 
+           `}
+        >
+          {option.label}
+        </button>
+      ))}
+    </div>
+  </div>
+);
 
-export const Settings = () => {
+export const SettingsModal = ({ toggleSettings }) => {
   const { settings, updateSettings } = useAppContext();
   const [selectedMethod, setSelectedMethod] = useState(
     settings.calculationMethod
@@ -71,30 +61,47 @@ export const Settings = () => {
       calculationMethod: selectedMethod,
       madhab: selectedMadhab,
     });
+    toggleSettings();
   };
 
   return (
-    <section id="settings" className="p-10">
-      <h1 className="text-4xl font-bold mb-4">Settings</h1>
-      <SelectField
-        label="Calculation Method"
-        value={selectedMethod}
-        options={SELECT_OPTIONS.calculationMethod}
-        onChange={setSelectedMethod}
-      />
+    <section id="settings">
+      <div className="fixed inset-0 z-40 bg-black/50 flex justify-center items-center">
+        <div className="bg-[--background]  pt-5 pb-10 px-10 rounded-lg shadow-lg w-11/12 md:w-1/2 relative flex flex-col justify-center gap-5">
+          {/* Close Button */}
+          <button
+            onClick={toggleSettings}
+            className=" ml-auto text-[--darkBrownTxt] rounded-full hover:text-[#0f363392] transition ease-in-out"
+          >
+            <X />
+          </button>
+          <h1 className="text-4xl font-bold mb-10 text-[--darkBrownTxt] text-center">
+            Settings
+          </h1>
+          <div>
+            <SelectField
+              label="Calculation Method"
+              value={selectedMethod}
+              options={prayerTimeSettings.calculationMethod}
+              onChange={setSelectedMethod}
+            />
 
-      <ToggleButtonGroup
-        label="Madhab"
-        value={selectedMadhab}
-        options={SELECT_OPTIONS.madhab}
-        onChange={setSelectedMadhab}
-      />
-      <button
-        onClick={handleSave}
-        className="mt-4 bg-[#1AA599] text-white py-2 px-4 rounded"
-      >
-        Save Settings
-      </button>
+            <MadhabToggleBtn
+              label="Madhab"
+              value={selectedMadhab}
+              options={prayerTimeSettings.madhab}
+              onChange={setSelectedMadhab}
+            />
+          </div>
+
+          <Link
+            onClick={handleSave}
+            className="mt-10 bg-[#227e7692] text-[--darkBrownTxt] hover:bg-[#0f363392] hover:text-[--beigeTxt] py-2 px-4 rounded text-xl text-center"
+          >
+            Save Settings
+          </Link>
+        </div>
+      </div>
     </section>
   );
 };

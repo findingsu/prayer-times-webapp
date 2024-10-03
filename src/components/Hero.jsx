@@ -25,10 +25,9 @@ export const Hero = () => {
         );
         setTimeUntilNextPrayer(timeDifference);
       };
-
       updateTime();
-      const timerId = setInterval(updateTime, 1000);
 
+      const timerId = setInterval(updateTime, 1000);
       return () => clearInterval(timerId);
     }
   }, [currentPrayer?.nextPrayerTime]);
