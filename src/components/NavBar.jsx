@@ -14,16 +14,11 @@ export const NavBar = () => {
 
   return (
     <header className="fixed top-0 left-0 w-full z-30 ">
-      <nav className="w-full flex items-center justify-between p-3 lg:px-6 text-[--beigeTxt]">
-        {/* Logo Section */}
-        <div className="text-2xl font-bold px-4 py-2 ">
-          <Link href="/">MyLogo</Link>
-        </div>
-
+      <nav className="w-full flex items-center  p-3 lg:px-6 text-[--beigeTxt]">
         {/* Settings Button */}
         <Link
           href="/"
-          className="flex items-center gap-2 px-4 py-2 rounded-lg text-[--beigeTxt] hover:bg-[--brownBgHover] focus:outline-none transition duration-300"
+          className="flex items-center ml-auto gap-2 px-4 py-2 rounded-lg text-[--beigeTxt] hover:bg-[--brownBgHover] focus:outline-none transition duration-300"
           onClick={toggleSettings}
         >
           <SettingsIcon />

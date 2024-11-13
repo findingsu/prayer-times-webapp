@@ -1,9 +1,8 @@
-import { NavBar, Hero, PrayerTimes } from "@/components";
+import { Hero, PrayerTimes } from "@/components";
 
 export default function Home() {
   return (
     <main className="w-screen h-screen">
-      <NavBar />
       <Hero />
       <PrayerTimes />
     </main>

@@ -8,15 +8,19 @@
 
 :root {
   --background: #e4e2dc;
-  --foreground: #171717;
-  --teal: #1aa599;
-  --gold: #ffc165;
-  --darkBrownTxt: #4A3C31;
-  --lightBrownTxt: #8C7A6B;
-  --beigeTxt: #e2e2e1;
-  --brownBg: #575451;
-  --lightBrownBg: #d0cbc5ea;
-  --brownBgHover: #8c888591;
+    --foreground: #27221e98;
+    --teal: #3a837df0;
+    --gold: #fbc36ed0;
+    --darkBrownTxt: #413a33e3;
+    --brownTxt: #423d3895;
+    --lightBrownTxt: #8C7A6B;
+    --beigeTxt: #c4c0b1;
+    --brownBg: #453c3190;
+    --lightBrownBg: #d0cbc545;
+    --lightBrownBgHover: #f3efef;
+    --brownBgHover: #dbd7cab1;
+    --highlight: #f1e5d3c7;
+    --heroTxt: #8e8475;
 }
 
 html {
@@ -25,5 +29,37 @@ html {
 
 body {
   scroll-behavior: smooth;
+  /* font-family: 'Noto Naskh Arabic', serif; */
 }
 
+.slick-list {
+  padding: 20px 0 !important;
+  overflow: visible !important;
+}
+
+.prayer-card {
+  @apply bg-white rounded-md p-6 shadow-lg transition-all duration-300 hover:shadow-xl;
+}
+
+
+
+
+.nav-button {
+  @apply flex items-center gap-2 px-4 py-2 rounded-lg text-[--beigeTxt] hover:bg-[--brownBgHover] focus:outline-none transition duration-300;
+}
+
+.settings-modal {
+  @apply fixed inset-0 z-50 bg-black/50 flex justify-center items-center backdrop-filter backdrop-blur-sm;
+}
+
+.settings-content {
+  @apply bg-white rounded-2xl shadow-2xl w-11/12 md:w-2/3 lg:w-1/2 p-8 relative;
+}
+
+.select-field {
+  @apply w-full border-2 border-gray-200 rounded-lg px-4 py-2 focus:outline-none focus:border-[--teal] transition-colors duration-200;
+}
+
+.save-button {
+  @apply w-full bg-[--teal] text-white py-3 rounded-lg text-lg font-medium hover:bg-opacity-90 transition duration-300;
+}

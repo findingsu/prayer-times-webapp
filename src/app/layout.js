@@ -1,4 +1,5 @@
 import { AppProvider } from "@/context";
+import { NavBar } from "@/components";
 import "../styles/globals.css";
 
 export const metadata = {
@@ -8,9 +9,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>
-        <AppProvider>{children}</AppProvider>
-      </body>
+      <AppProvider>
+        <body>
+          <NavBar />
+          {children}
+        </body>
+      </AppProvider>
     </html>
   );
 }

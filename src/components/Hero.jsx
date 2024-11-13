@@ -3,11 +3,12 @@
 import { MapPinIcon } from "lucide-react";
 import Image from "next/image";
 import { useAppContext } from "@/context";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { calculateTimeDifference } from "@/utils";
+import { format } from "date-fns";
 
 export const Hero = () => {
-  const { location, currentPrayer, fetchPrayerTimes, loading, error } =
+  const { location, currentPrayer, fetchPrayerTimes, loading, selectedDate } =
     useAppContext();
   const [timeUntilNextPrayer, setTimeUntilNextPrayer] = useState(null);
 
@@ -26,22 +27,24 @@ export const Hero = () => {
         setTimeUntilNextPrayer(timeDifference);
       };
       updateTime();
-
       const timerId = setInterval(updateTime, 1000);
       return () => clearInterval(timerId);
     }
   }, [currentPrayer?.nextPrayerTime]);
 
-  const capitalizeFirstLetter = (string) => {
-    return string ? string.charAt(0).toUpperCase() + string.slice(1) : "";
-  };
+  const locationText = useMemo(() => {
+    return loading
+      ? "Loading location..."
+      : location
+      ? `${location.city}, ${location.country}`
+      : "Location not available";
+  }, [loading, location]);
 
-  const currentPrayerName = capitalizeFirstLetter(currentPrayer?.current);
-  const nextPrayerName = capitalizeFirstLetter(currentPrayer?.next);
+  const isToday =
+    format(selectedDate, "yyyy-MM-dd") === format(new Date(), "yyyy-MM-dd");
 
   return (
-    <section className="relative w-full min-h-[70vh] p-5 flex items-center justify-center">
-      {/* Hero Image */}
+    <section className="relative w-full min-h-[60vh] flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 z-0">
         <Image
           src="/assets/hero.jpeg"
@@ -49,42 +52,56 @@ export const Hero = () => {
           quality={100}
           fill
           priority
-          className="object-cover"
+          className="object-cover transform scale-105 filter brightness-75"
         />
-        <div className="absolute inset-0 bg-black/50" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/40" />
       </div>
 
-      {/* Title */}
-      <div className="relative z-10 w-full">
-        <h1 className="text-[#e2e2e1] text-4xl md:text-5xl font-bold text-center mb-5">
+      <div className="relative z-10 w-full max-w-4xl mx-auto px-4">
+        <h1
+          className="text-[--beigeTxt] text-2xl md:text-4xl font-bold text-center mb-8 
+                     leading-tight"
+        >
           Your Prayer Times
         </h1>
 
-        {/* Location */}
-        <div className="flex flex-col gap-3 justify-center items-center">
-          <div className="bg-[#575451] text-[#e2e2e1] text-xl rounded-lg p-5 flex items-center justify-center w-1/4">
-            <MapPinIcon className="h-5 w-5 mr-2" />
-            <p>
-              {loading
-                ? "Loading location..."
-                : location
-                ? `${location.city}, ${location.country}`
-                : "Location not available"}
-            </p>
+        <div className="flex flex-col gap-4 items-center">
+          <div
+            className="bg-white/10 backdrop-blur-xl text-[--beigeTxt] text-lg 
+                        rounded-md p-5 flex items-center justify-center 
+                        border border-white/15 shadow-lg w-full md:w-2/3"
+          >
+            <MapPinIcon className="h-6 w-6 mr-3 text-[--lightBrownTxt]" />
+            <p className="font-medium">{locationText}</p>
           </div>
 
-          {/* Current Prayer */}
-          {currentPrayerName && (
-            <div className="bg-[#ffc165] text-[#4A3C31] rounded-lg p-5 text-xl font-semibold text-center shadow-lg w-1/4">
-              <p>Now: {currentPrayerName}</p>
+          {isToday && currentPrayer?.current && (
+            <div
+              className="bg-[--highlight] text-[--darkBrownTxt] rounded-md p-5 
+                          text-2xl font-bold text-center shadow-lg 
+                          transform hover:scale-105 transition-transform 
+                          duration-300 w-full md:w-2/3"
+            >
+              <p>
+                Current Prayer:{" "}
+                {currentPrayer.current.charAt(0).toUpperCase() +
+                  currentPrayer.current.slice(1)}
+              </p>
             </div>
           )}
 
-          {/* Next Prayer */}
-          {nextPrayerName && timeUntilNextPrayer && (
-            <div className="bg-[#575451] rounded-lg p-5 text-[#e2e2e1] text-xl shadow-lg flex items-center justify-center w-1/4">
-              <p>
-                {nextPrayerName} in {timeUntilNextPrayer}
+          {isToday && currentPrayer?.next && timeUntilNextPrayer && (
+            <div
+              className="bg-white/10 backdrop-blur-md rounded-md p-5 
+                          text-[--beigeTxt] text-2xl shadow-lg 
+                          border border-white/20 w-full md:w-2/3"
+            >
+              <p className="text-center">
+                <span className="font-bold">
+                  {currentPrayer.next.charAt(0).toUpperCase() +
+                    currentPrayer.next.slice(1)}
+                </span>{" "}
+                in {timeUntilNextPrayer}
               </p>
             </div>
           )}
